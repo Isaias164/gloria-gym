@@ -1,4 +1,4 @@
-from os import name
+﻿from os import name
 from django.contrib.auth import login
 from django.urls import path,include
 from .views import Login,MyTemplates,Recerbas,Correo
@@ -42,5 +42,3 @@ urlpatterns = [
     path("recuperar/password/",correo,name="recovery-count"),
     path("eliminar/cuenta/",Login.eliminar_cuenta)
 ]
-#Contraseña de adminstrador
-#12345678Isa

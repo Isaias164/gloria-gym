@@ -1,3 +1,7 @@
 correo:ComplejoDeportivoLaGloria02020@gmail.com
 psw:1234567890ABCDEFG
 nombre-apellido:Complejo Deportivo La Gloria
+
+Sitio administrativo
+usuario: isaias
+pwd: 12345678Isa
