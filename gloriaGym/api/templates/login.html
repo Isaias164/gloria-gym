@@ -1,0 +1,40 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Login</title>
+{% endblock title %}
+
+{% block icon %}
+    <link rel="shortcut icon" href="{% static '/api/img/ico/login.ico' %}" type="image/x-icon">
+{% endblock icon %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static '/api/css/logging.css' %}">
+{% endblock css %}
+    
+
+{% block body %}
+    
+<div>   
+    <form action="{% url 'api:procesar' %}" method="get">
+        <input type="text" id="user" name="user" placeholder="Ingrese su correo" required>
+        <input type="password" id="pwd" name="pwd" placeholder="Ingrese su contraseña" required>
+        <label for="#recordar"><input type="checkbox" name="recordar1" value="off" id="recordar">Recordarme</label>
+        <input type="submit" id="button" value="Ingresar">
+    </form>
+    <div style="position: relative;right: 60%;">
+        {% if mensaje %}
+            <p style="color: white; font-size: 22px;text-align: center;">{{mensaje}}</p>
+        {% endif %}
+    </div>
+</div>
+<div>
+    <p><a href="{% url 'api:recoveryPassword' %}">Olvide mi contraseña</a></p>
+    <p><a href="{% url 'api:createUser' %}">Crear usuario</a></p>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+<script src="{% static '/api/js/forms.js' %}"></script>
+{% endblock body %}
+    

@@ -11,10 +11,12 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 
+DEFAULT_FROM_EMAIL = ("ComplejoDeportivoLaGloria02020@gmail.com",)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
@@ -26,10 +28,15 @@ SECRET_KEY = 'q2aoh85u9%ai46o0^y5spa*-i1+*=n4#9e3)vy03m(@k4+!rj^'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+DEFAULT_FROM_EMAIL = 'complejodeportivolagloria02020@gmail.com'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'complejodeportivolagloria02020@gmail.com'
+EMAIL_HOST_PASSWORD = '1234567890ABCDEFG'
+EMAIL_PORT = 587
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -37,7 +44,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'gloriaGym.api'
+    'gloriaGym.api',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
@@ -55,7 +63,7 @@ ROOT_URLCONF = 'gloriaGym.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR,"api/templates/").replace("\\","/"),os.path.join(BASE_DIR,"templates").replace("\\","/")],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -102,6 +110,12 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+PASSWORD_HASHERS = [
+    'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
+    'django.contrib.auth.hashers.Argon2PasswordHasher',
+]
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
@@ -121,3 +135,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+LOGIN_URL = "/api/cuentas/login/"
+LOGIN_REDIRECT_URL = "/api/cuentas/login/"
+
+# REST_FRAMEWORK = {
+#     'DEFAULT_PARSER_CLASSES': [
+#         'rest_framework.permissions.AllowAny',
+#     ]
+# }

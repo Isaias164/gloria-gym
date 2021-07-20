@@ -1,0 +1,34 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block icon %}
+    <link rel="shortcut icon" href="{% static '/api/img/ico/crear usuario.ico' %}" type="image/x-icon">
+{% endblock icon %}
+{% block title %}
+    <title>Creación de usuario</title>
+{% endblock title %}
+    
+{% block css %}
+    <link rel="stylesheet" href="{% static '/api/css/informacion_usuario.css' %}">
+    <link rel="stylesheet" href="{% static '/api/css/logging.css' %}">
+{% endblock css %}
+
+{% block body %}
+    <form action="{% url 'api:procesar' %}" method="post">
+        {% csrf_token %}
+        <input type="text" name="firstName" id="fn" placeholder="Ingrese su nombre" value= {{nombre}}>
+        <input type="text" name="lastName" id="ln" placeholder="Ingrese su apellido" value={{apellido}}>
+        {% if "Este correo" in correo %}
+            <p style="color: greenyellow;">{{correo}}</p>
+        {% endif %}
+        <input type="email" name="email" id="email" placeholder="Ingrese su email" value={{correo}}>
+        {% if "Este usario" in usuario %}
+            <p style="color: greenyellow;">{{usuario}}</p>
+        {% endif %}
+        <input type="text" name="username" id="user" placeholder="Ingrese su nombre de usuario" value={{usuario}}>
+        <input type="password" name="pwd" id="pwd" placeholder="Ingrese su contraseña">
+        <input type="submit" value="Registrarme" id="recovery">
+    </form>
+    <p id="mensajeRecerba"><a href="{% url 'api:index' %}">Volver al menu principal</a></p>
+    <script src="{% static '/api/js/forms.js' %}"></script>
+{% endblock body %}
+    

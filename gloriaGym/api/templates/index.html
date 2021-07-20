@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+    <head>
+        {% block title %}
+        <title>Gloria Gym</title>
+        {% endblock title %}
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.5 user-scalable = no minimum-scale = 100% maximum-scale = 110%">
+        
+        {% block css %}
+            <link rel="stylesheet" href="{% static '/api/css/index.css' %}">
+        {% endblock css %}        
+
+        {% block icon %}
+            <link rel="shortcut icon" href="{% static '/api/img/training_icon_124481.ico' %}" type="image/x-icon">
+        {% endblock icon %}
+    </head>
+    <body id="body">
+        {% block body %}
+        <div id="logoMyCompany">
+            <div>
+                <picture>
+                    <source media="(min-width:576px) and (max-width:767px)" srcset="{% static '/api/img/img-responsive/logo/logo-600px.png' %}">
+                    <source media="(min-width:299px) and (max-width:575px)" srcset="{% static '/api/img/img-responsive/logo/logo-400px.png' %}">
+                    <img src="{% static '/api/img/logo.png' %}" id="logo">
+                </picture>
+                <p id="titulo">Complejo <br>Deportivo<br>La Gloria</p>
+                <picture>
+                    <source media="(min-width:768px) and (max-width:991px)" srcset="{% static '/api/img/img-responsive/logo/atletas-800.png' %}">
+                    <source media="(min-width:576px) and (max-width:767px)" srcset="{% static '/api/img/img-responsive/logo/atletas-600px.png' %}">
+                    <source media="(min-width:299px) and (max-width:575px)" srcset="{% static '/api/imagenes/img-responsive/logo/atletas-400px.png' %}">
+                    <img src="{% static '/api/img/atletas.png' %}" id="atletas">
+                </picture>
+            </div>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#competitions">Torneos</a></li>
+                <li><a href="{% url 'api:recerbas-hechas' %}">Reserbas hechas</a></li>
+                <li><a href="#contact">Contactos</a></li>
+                <li>Configuración<a href="" id="settings"></a>
+                        <ol>
+                            <li><a href="{% url 'api:datos-usuario' %}">Mi usuario</a></li>
+                            <li><a href="{% url 'api:change-correo' %}">Cambiar correo</a></li>
+                            <li><a href="{% url 'api:change-password' %}">Cambiar contraseña</a></li>
+                            <li><a href="{% url 'api:logout' %}">salir</a></li>
+                        </ol>
+                    </li>
+                </a>
+            </ul>
+        </nav>
+        <div id="sports">
+            <div id="futbol">
+                <picture>
+                    <source media="(min-width:768px) and (max-width:991px)" srcset="{% static '/api/img/img-responsive/sports/futbol-800px.png' %}">
+                    <source media="(min-width:576px) and (max-width:767px)" srcset="{% static '/api/img/img-responsive/sports/futbol-600px.png' %}">
+                    <source media="(min-width:299px) and (max-width:575px)" srcset="{% static '/api/img/img-responsive/sports/futbol-400px.png' %}">
+                    <img src="{% static '/api/img/futbol.png' %}">
+                </picture>
+                <a href="{% url 'api:inscripcion' %}" id="linkF">¡Hacer recerba!</a>
+            </div>
+            <div id="gym">
+                <picture>
+                    <source media="(min-width:768px) and (max-width:991px)" srcset="{% static '/api/img/img-responsive/sports/gym-800px.png' %}">
+                    <source media="(min-width:576px) and (max-width:767px)" srcset="{% static '/api/img/img-responsive/sports/gym-600px.png' %}">
+                    <source media="(min-width:299px) and (max-width:575px)" srcset="{% static '/api/img/img-responsive/sports/gym-400px.png' %}">
+                    <img src="{% static '/api/img/gym.png' %}">
+                </picture>
+                <a href="{% url 'api:inscripcion' %}" id="linkG">¡Hacer recerba!</a>
+            </div>
+            <div id="sinkSwimming">
+                <picture>
+                    <source media="(min-width:768px) and (max-width:991px)" srcset="{% static '/api/img/img-responsive/sports/swimming-800px.png' %}">
+                    <source media="(min-width:576px) and (max-width:767px)" srcset="{% static '/api/img/img-responsive/sports/swimming-600px.png' %}">
+                    <source media="(min-width:299px) and (max-width:575px)" srcset="{% static '/api/img/img-responsive/sports/swimming-400px.png' %}">
+                    <img src="{% static '/api/img/swimming.png' %}">
+                </picture>
+                <a href="{% url 'api:inscripcion' %}" id="linkN">¡Hacer recerba!</a>
+            </div>
+            <div id="paddle">
+                <picture>
+                    <source media="(min-width:768px) and (max-width:991px)" srcset="{% static '/api/img/img-responsive/sports/paddle-800px.png' %}">
+                    <source media="(min-width:576px) and (max-width:767px)" srcset="{% static '/api/img/img-responsive/sports/paddle-600px.png' %}">
+                    <source media="(min-width:299px) and (max-width:575px)" srcset="{% static '/api/img/img-responsive/sports/paddle-400px.png' %}">
+                    <img src="{% static '/api/img/paddle.png' %}" title="Reserba para la cancha de paddle">
+                </picture>
+                <a href="{% url 'api:inscripcion' %}" id="linkP">¡Hacer recerba!</a>
+            </div>
+        </div>
+        <p id="tituloTorneos">Torneos a realizar</p>
+        <div id="competitions">
+            <img src= "{% static '/api/img/torneos/futbol/futbol1.PNG' %}" id="compeFutbol">
+            <img src="{% static '/api/img/torneos/gym/gym1.PNG' %}" id="compeGym">
+            <img src="{% static '/api/img/torneos/natación/natación1.PNG' %}" id="compeNatacion">
+            <img src="{% static '/api/img/torneos/paddle/paddle1.PNG' %}" id="compePaddle">
+        </div>
+        <footer>
+            <div id="whoWeAre">
+                <header id="a">¿Quienes somos?</header><br>
+                <p>Somos una empresa deportiva y social que lleva más de 20 años en el rubro organizando eventos deportivos y sociales.</p>
+            </div>
+            <div id="weOffer">
+                <header>¿Que ofrecemos?</header><br>
+                <p>Profesionalismo, execelente atención, instalaciones bien equipadas y en muy buen estado.<br>Además de la posibilidad de competir en torneos a nivel provincial y nacional</p>
+            </div>
+            <div id="whereWeAre">
+                <header>Donde nos puedes encontrar</header><br>
+                <p>Nos encontramos en Av.Neustadt 183</p>
+            </div>
+            <div id="information">
+                <header>Horarios de atención</header><br>
+                <p>Lunes a Sabado<br>De 8:00 hrs a 22:00 hrs</p>
+            </div>
+            <div id="consultations">
+                <header>Consultas</header>
+                <p>Puedes consultarnos por cualquier red social o mediante el formulario que esta en el apartado <strong>Formas de Contactos</strong></p>
+            </div>
+            <div id="contact">
+                <header>Formas de contacto</header><br>
+                <p>Envianos un correo a <a href="https://mail.google.com/mail">ComplejoDeportivoLaGloria02020@gmail.com</a></p>
+                <p>Llamando al celular (3777)1234567890.</p>
+                <p><a href="#formContact" id="fc">Contactar por este medio</a></p>
+            </div>
+        </footer>
+        <div id="form">
+            <form name="formularioContacto" action="https://formspree.io/f/xdoyejwd" method="POST" id="formContact">
+                <a href="#contact" id="salirEnlace"><img src="{% static '/api/img/x.png' %}" id="salir"></a>
+                <input type="text" name="nombre" value="" id ="nombre1" placeholder="Ingrese su nombre" autocomplete = "on" required/>
+                <input type="text" name="apellido" value="" id ="apellido1" placeholder="Ingrese su apellido" autocomplete = "on" required/>
+                <input type="email" name="correo" value="" id ="correo1"placeholder="Ingrese su correo" autocomplete="on" required/>
+                <select name="motivo" id ="motivo1">
+                    <option value="Inscrpciones">Inscripciones</option>
+                    <option value="Torneos">Torneos</option>
+                </select>
+                <textarea name="mensaje" rows="10" cols="20" placeholder="Escriba su mensaje" id ="mensaje1" required></textarea>
+                <button type="submit">Enviar</button>
+            </form>
+        </div> 
+        
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+        <script type="text/javascript" src="{% static '/api/js/index.js' %}"></script>
+        <script type="text/javascript" src="{% static '/api/js/forms.js' %}"></script>
+        <script>
+            $("#fc").click(function () { 
+                $("#form").css("display","block");
+            });
+            $("#salir").click(function () { 
+                $("#form").css("display","none");
+            });
+        </script>
+        {% endblock body %}
+    </body>
+</html>

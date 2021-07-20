@@ -1,0 +1,87 @@
+*{
+    padding: 0px;
+    margin: 0px;
+}
+body{
+    background:green; 
+}
+#form{
+    margin-top: 2%;
+    width: auto;
+    background-color: green;
+}
+#form > #formInscrip #salir{
+    width: 25px;
+    height: 25px;
+    position: relative;
+    left: 92%;
+    margin-top: 2%;
+    border-radius: 50%;
+}
+#form > #formInscrip{
+    margin: 0% auto;
+    width: 400px;
+    height: auto;
+    border: 1px solid darkblue;
+    background-color: green;
+}
+#form > #formInscrip>input,#form > #formInscrip>select,#form > #formInscrip>label{
+    margin: 5%;
+    width: 85%;
+    height: 35px;
+    padding-left: 2%;
+    font-size: 18px;
+    font-weight: 200;
+    outline: yellow;
+}
+#form > #formInscrip>select{
+    width: 88%;
+}
+#form > #formInscrip>input:last-child{
+    width: 88%;
+    background-color: green;
+    color: white;
+}
+#divServidor{
+    width: auto;
+    height: 400px;
+    border: 1px solid black;
+    margin: 0% auto;
+    background-color: rgb(8, 173, 8);
+    z-index: 5;
+    border: 1.5px solid white;
+}
+#pServidor{
+    color: white;
+    font-size: 25px;
+    text-align: center;
+    word-spacing: 2px;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+#salirServidor{
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    border-radius: 50%;
+}
+#cara{
+    padding: 0px;
+    margin: 0px;
+    display: block;
+    margin: 0% auto;
+    width: 170px;
+    height: 150px;
+    border-radius: 50%;
+}
+@media screen and (min-width:299px) and (max-width:575px){
+    #form > #formInscrip{
+        width: 250px;
+    }
+    #form > #formInscrip #salir{
+        position: relative;
+        left: 89%;
+    }
+}        
