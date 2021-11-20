@@ -15,9 +15,9 @@ Including another URLconf
 """
 from os import name
 from django.contrib import admin
-from django.urls import path,include
+from django.urls import path, include
 
 urlpatterns = [
-    path('admin/', admin.site.urls,name="site-admin"),
-    path('api/', include("gloriaGym.api.urls"))
+    path("admin/", admin.site.urls, name="site-admin"),
+    path("api/", include("api.urls")),
 ]

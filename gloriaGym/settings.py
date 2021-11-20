@@ -49,7 +49,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "gloria_gym.api.apps.ApiConfig",
+    "api.apps.ApiConfig",
     "rest_framework",
 ]
 
@@ -93,9 +93,11 @@ WSGI_APPLICATION = "gloriaGym.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        "NAME": "gloria_gym",
+        "NAME": "gym",
         "USER": "root",
         "HOST": "localhost",
+        "PORT": "3306",
+        "PASSWORD": "1234",
     }
 }
 
