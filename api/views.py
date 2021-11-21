@@ -64,7 +64,6 @@ class Login(ViewSet):
                 {
                     "login": False,
                     "messaje": datos.error_messages,
-                    "params recividos": request.GET,
                 }
             )
         # Verifico si el usuario esta en la base de datos
@@ -98,57 +97,62 @@ class Login(ViewSet):
     def create(self, request):
         from django.contrib.auth.models import User
         from django.contrib.auth import login
-        from json import dumps
 
         try:
-            name = request.POST["firstName"]
-            last_name = request.POST["lastName"]
-            correo = request.POST["email"]
+            datos = CreateUserSerializers(data=request.data)
+            if not datos.is_valid():
+                return JsonResponse(
+                    {"create_user": False, "error": datos.error_messages}
+                )
+            name = request.data["first_name"]
+            last_name = request.data["last_name"]
+            correo = request.data["email"]
+            pwd = request.data["pwd"]
+            username = request.data["user"]
             existe_usuario = Instalaciones.insertar(
-                self, "SELECT EXISTE_USUARIO(%s)", (request.POST["username"],)
+                self, "SELECT EXISTE_USUARIO(%s)", (username,)
             )
             existe_correo = Instalaciones.insertar(
-                self, "SELECT EXISTE_CORREO(%s)", (request.POST["email"],)
+                self, "SELECT EXISTE_CORREO(%s)", (correo,)
             )
             if not existe_correo[0]:
                 if not existe_usuario[0]:
                     userAuth = User.objects.create_user(
-                        request.POST["username"],
-                        request.POST["email"],
-                        request.POST["pwd"],
-                        first_name=request.POST["firstName"],
-                        last_name=request.POST["lastName"],
+                        username,
+                        correo,
+                        pwd,
+                        first_name=name,
+                        last_name=last_name,
                     )
                     # creo la sessión y guardo el nombre de usuario y nombre
                     request.session["usuario"] = (
-                        request.POST["username"],
-                        request.POST["firstName"],
+                        username,
+                        name,
                     )
                     login(request, userAuth)
-                    return HttpResponseRedirect(MyTemplates.redirection_template_index)
+                    # return HttpResponseRedirect(MyTemplates.redirection_template_index)
+                    return JsonResponse(
+                        {"usuario_create": True, "redirect": "/api/index"}
+                    )
                 else:
-                    return render(
-                        request,
-                        "crear_usuario.html",
+                    return JsonResponse(
                         {
                             "usuario": "Este usuario ya existe en la base de datos. Elija otro usuario",
                             "nombre": name,
                             "apellido": last_name,
                             "correo": correo,
-                        },
+                        }
                     )
             else:
-                return render(
-                    request,
-                    "crear_usuario.html",
+                return JsonResponse(
                     {
                         "correo": "Este correo ya existe en la base de datos. Elija otro correo",
                         "nombre": name,
                         "apellido": last_name,
-                    },
+                    }
                 )
         except Exception as objExceptions:
-            return HttpResponse("ERROR: " + str(objExceptions))
+            return JsonResponse({"error: ": str(objExceptions)})
 
     def logoutSession(request):
         from django.contrib.auth import logout
