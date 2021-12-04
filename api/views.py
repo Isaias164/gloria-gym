@@ -2,9 +2,14 @@ from datetime import date
 from api.models import GruposReserbas, Instalaciones
 from django.shortcuts import HttpResponse, HttpResponseRedirect, render
 from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 from rest_framework.viewsets import ViewSet
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+
+# from rest_framework.views import APIView
 from rest_framework.decorators import action
 from api.serializers.serializers import *
+from rest_framework.permissions import IsAuthenticated
 
 
 class MyTemplates:
@@ -54,7 +59,12 @@ class MyTemplates:
 
 
 class Login(ViewSet):
+
+    authentication_classes = [SessionAuthentication, BasicAuthentication]
+    permission_classes = [IsAuthenticated]
+
     @action(detail=True, methods=["post"])
+    # @csrf_exempt
     def login_user(self, request):
         from django.contrib.auth import authenticate, login
 
@@ -160,7 +170,10 @@ class Login(ViewSet):
         logout(request)
         return HttpResponseRedirect(MyTemplates.redirection_template_login)
 
-    def eliminar_cuenta(request):
+    def destroy(self, request, pk=None):
+        """
+        Esta vista elimina la cuneta del usuario
+        """
         Instalaciones.insertar(
             request,
             "CALL DECREMENTAR_RECERBAS_REALIZADAS_USUARIO(%s)",
@@ -168,7 +181,10 @@ class Login(ViewSet):
         )
         request.user.delete()
         request.session.flush()
-        return HttpResponseRedirect("/api/login/")
+        # return HttpResponseRedirect("/api/login/")
+        return JsonResponse(
+            {"error": False, "message": "cuenta elimnada satisfactoriamente"}
+        )
 
     def update(request):
         # si la solicitud contiene una clave email
