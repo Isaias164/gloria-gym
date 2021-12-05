@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import os
+from dotenv import load_dotenv
 
 import pymysql
 
@@ -93,12 +94,12 @@ WSGI_APPLICATION = "gloriaGym.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.mysql",
-        "NAME": "glorya_gym",
-        "USER": "root",
-        "HOST": "localhost",
-        "PORT": "3306",
-        "PASSWORD": "1234",
+        "ENGINE": os.getenv("BACKEND"),
+        "NAME": os.getenv("NAME"),
+        "USER": os.getenv("USER"),
+        "HOST": os.getenv("HOST"),
+        "PORT": os.getenv("PORT"),
+        "PASSWORD": os.getenv("PASSWORD"),
     }
 }
 
