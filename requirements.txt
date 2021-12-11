@@ -4,3 +4,6 @@ pymysql
 bcrypt
 python-dotenv
 djangorestframework-jwt
+cryptography
+PyJWT==2.1.0
+sendgrid
