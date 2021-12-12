@@ -1,59 +1,44 @@
 from datetime import date
-from .models import GruposReserbas, Instalaciones
+
 from django.shortcuts import HttpResponse, HttpResponseRedirect, render
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.models import User
+from django.contrib.auth import login
+
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 
-# from rest_framework.views import APIView
-from rest_framework.decorators import action
-from .serializers.serializers import *
+from rest_framework.decorators import action, permission_classes
 from rest_framework.permissions import IsAuthenticated, AllowAny
+from .serializers.serializers import *
+
+from .models import GruposReserbas, Instalaciones
 
 
-class X(ViewSet):
-    def update(self, reques, pk=None):
-        from django.contrib.auth.models import User
-
-        a = User.objects.filter(email="ejemplo1@gmail.com")
-        a = a.update(email="est_es_otro_correo@gmail.com").query.__str__()
-        print(a)
-
-        # print(a[0].update(email="est_es_otro_correo@gmail.com").query)
-        return Response(
-            {"mensaje": "correo actualizado correctamnte"},
-            status=200,
-            content_type="application/json",
-        )
-
-
-class Login(ViewSet):
-    permission_classes = [IsAuthenticated]
-
-    @action(detail=True, methods=["post"])
+class UserViews(ViewSet):
     # @csrf_exempt
+    @action(detail=True, methods=["post"])
     def login_user(self, request):
         from django.contrib.auth import authenticate, login
 
         datos = LoginSerializers(data=request.data)
         if not datos.is_valid():
-            return Response(
-                {
-                    "login": False,
-                    "messaje": datos.error_messages,
-                }
-            )
+            return Response({"login": False, "messaje": datos.errors})
         # Verifico si el usuario esta en la base de datos
         usuario = authenticate(
-            username=datos.validated_data["user"], password=datos.validated_data["pwd"]
+            username=datos.validated_data["username"],
+            password=datos.validated_data["password"],
         )
-        # si las credenciales son correctas me devuelve un objeto user si no me devuelve None
+        # si las credenciales son correctas y/o el usuario existe en la bd
         if usuario is not None:
             # asocio el usuario con la session
             login(request, usuario)
-            # return HttpResponseRedirect("api/token/")
-            return Response(
-                {"login": True, "message": "Usuario validado correctamente"}
+            # llamo al endpoint que me va a generar el token bearer para acceder a las demás clases más adelante
+            # La vista que me genera el token va a retornar al cliente el token/refreshtoken
+            return HttpResponseRedirect(
+                "/api/token/",
+                content=datos.validated_data,
+                content_type="application/json",
             )
         else:
             return Response(
@@ -61,21 +46,20 @@ class Login(ViewSet):
                     "login": False,
                     "mensaje": "Posibles causas del fallo:\n1- El usuario y/o la contraseña no coincide\n2-Su usuario ha sido desactivado por el administrador. Contacte con el administrador",
                 },
+                status=200,
             )
 
     def create(self, request):
-        from django.contrib.auth.models import User
-        from django.contrib.auth import login
 
         try:
             datos = CreateUserSerializers(data=request.data)
             if not datos.is_valid():
-                return Response({"create_user": False, "error": datos.error_messages})
-            name = request.data["first_name"]
-            last_name = request.data["last_name"]
-            correo = request.data["email"]
-            pwd = request.data["pwd"]
-            username = request.data["user"]
+                return Response({"create_user": False, "error": datos.errors})
+            name = datos.validated_data["first_name"]
+            last_name = datos.validated_data["last_name"]
+            correo = datos.validated_data["email"]
+            pwd = datos.validated_data["password"]
+            username = datos.validated_data["username"]
             existe_usuario = Instalaciones.insertar(
                 self, "SELECT EXISTE_USUARIO(%s)", (username,)
             )
@@ -96,28 +80,38 @@ class Login(ViewSet):
                         username,
                         name,
                     )
+                    # unimos la session con el usuario
                     login(request, userAuth)
-                    # return HttpResponseRedirect(MyTemplates.redirection_template_index)
-                    return Response({"usuario_create": True, "redirect": "/api/index"})
+                    # obtenemos su token
+                    datos.validated_data.pop("first_name")
+                    datos.validated_data.pop("last_name")
+                    datos.validated_data.pop("email")
+                    return HttpResponseRedirect(
+                        "/api/token/",
+                        content=datos.validated_data,
+                        content_type="application/json",
+                    )
+
                 else:
                     return Response(
                         {
-                            "usuario": "Este usuario ya existe en la base de datos. Elija otro usuario",
-                            "nombre": name,
-                            "apellido": last_name,
-                            "correo": correo,
-                        }
+                            "usuario": f"El usuario {username} ya existe en la base de datos. Elija otro usuario",
+                        },
+                        status=200,
                     )
             else:
                 return Response(
                     {
-                        "correo": "Este correo ya existe en la base de datos. Elija otro correo",
-                        "nombre": name,
-                        "apellido": last_name,
-                    }
+                        "correo": f"El correo {correo} ya existe en la base de datos. Elija otro correo",
+                    },
+                    status=200,
                 )
         except Exception as objExceptions:
             return Response({"error: ": str(objExceptions)})
+
+
+class LogingViews(ViewSet):
+    permission_classes = [IsAuthenticated]
 
     def logoutSession(request):
         from django.contrib.auth import logout
