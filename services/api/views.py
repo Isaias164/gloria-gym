@@ -3,12 +3,13 @@ from datetime import date
 from django.shortcuts import HttpResponse, HttpResponseRedirect, render
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
+from rest_framework.serializers import Serializer
 
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 
-from rest_framework.decorators import action, permission_classes
+from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from .serializers.serializers import *
 
@@ -16,7 +17,8 @@ from .models import GruposReserbas, Instalaciones
 
 
 class UserViews(ViewSet):
-    # @csrf_exempt
+    permission_classes = [AllowAny]
+
     @action(detail=True, methods=["post"])
     def login_user(self, request):
         from django.contrib.auth import authenticate, login
@@ -113,15 +115,9 @@ class UserViews(ViewSet):
 class LogingViews(ViewSet):
     permission_classes = [IsAuthenticated]
 
-    def logoutSession(request):
-        from django.contrib.auth import logout
-
-        logout(request)
-        return HttpResponse("Has salido del sistema")
-
     def destroy(self, request, pk=None):
         """
-        Esta vista elimina la cuneta del usuario
+        Esta vista elimina la cuenta del usuario
         """
         Instalaciones.insertar(
             request,
@@ -130,61 +126,63 @@ class LogingViews(ViewSet):
         )
         request.user.delete()
         request.session.flush()
+        logout(request)
         # return HttpResponseRedirect("/api/login/")
         return Response(
             {"error": False, "message": "cuenta elimnada satisfactoriamente"}
         )
 
-    def update(request):
-        # si la solicitud contiene una clave email
-        if "email" in request.POST:
-            correo = "No fue posible cambiar su dirección de correo. Vuelva a intentarlo más tarde"
-            try:
-                # cambio el email
-                request.user.email = request.POST["email"]
-                request.user.save()
-                correo = (
-                    "Se ha estabelcido el email "
-                    + request.POST["email"]
-                    + " satisfactoriamente"
-                )
-            except:
-                pass
-            # renderizo la plantilla correspondiente a el cambio de correo
-            return render(request, "correo_change.html", {"correo": correo})
-        # si la solicitud contiene una clave passwordNew
-        if "passwordNew" in request.POST:
-            mensajePassword = (
-                "No se ha podido cambiar su contraseña.Vuelva a intentarlo más tarde"
-            )
-            # Obtengo los datos de la vieja session
-            if request.user.check_password(request.POST["passwordOld"]):
-                from django.contrib.auth import update_session_auth_hash
+    def list(request):
+        data = {
+            "nombre": request.user.first_name + " " + request.user.last_name,
+            "usuario": request.user.username,
+            "email": request.user.email,
+            "fechaCreacion": request.user.date_joined,
+        }
+        return Response(data=data, status=200, content_type="application/json")
 
-                request.user.set_password(request.POST["passwordNew"])
-                request.user.save()
-                update_session_auth_hash(request, request.user)
-                mensajePassword = "Se ha actualizado la contraseña correctamente"
-            else:
-                mensajePassword = (
-                    "Su contraseña actual no se encuntra en la base de datos"
-                )
-            return render(
-                request, "password_change.html", {"respuesta": mensajePassword}
-            )
 
-    def informacionDatosUsuario(request):
-        return render(
-            request,
-            "informacion_usuario.html",
-            {
-                "nombre": request.user.first_name + " " + request.user.last_name,
-                "usuario": request.user.username,
-                "email": request.user.email,
-                "fechaCreacion": request.user.date_joined,
-            },
-        )
+class EmailViews(ViewSet):
+    permission_classes = [IsAuthenticated]
 
+    def update(self, request):
+        datos = UpdateEmailSerializers(data=request.data)
+        data = "Correo actualizado correctamnte"
+        if not datos.is_valid():
+            return Response(data={"error": True, "message": "Este campo es requerido"})
+        try:
+            request.user.email = datos.validated_data["email"]
+            request.user.save()
+        except Exception as e:
+            data = "Ha ocurrido un error y no hemos podido actualizar tu correo"
+            print("Ocurrio el siguiente error")
+        finally:
+            return Response(data=data)
+
+
+class PasswordViews(ViewSet):
+    permission_classes = [IsAuthenticated]
+
+    def update(self, request):
+        datos = UpdatePasswordSerializers(data=request.data)
+        if not datos.is_valid():
+            return Response(data={"error": True, "message": "Este campo es requerido"})
+        if not datos.validated_data["password"] == datos.validated_data["password2"]:
+            return Response(data={"password": "Las contraseñas no coinciden"})
+
+        mensaje = """No se ha podido cambiar su contraseña.
+                        Vuelva a intentarlo más tarde"""
+        try:
+            from django.contrib.auth import update_session_auth_hash
+
+            request.user.set_password(datos.validated_data["password2"])
+            request.user.save()
+            update_session_auth_hash(request, request.user)
+            mensaje = "Se ha actualizado la contraseña correctamente"
+        except Exception as e:
+            print(f"error {str(e)}")
+        finally:
+            return Response(data=mensaje)
 
 class Recerbas(ViewSet):
     def create(self, request):
