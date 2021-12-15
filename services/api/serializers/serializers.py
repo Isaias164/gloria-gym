@@ -4,9 +4,11 @@ from rest_framework import serializers
 class UpdateEmailSerializers(serializers.Serializer):
     email = serializers.EmailField(error_messages={"email": "El email no es valido"})
 
+
 class UpdatePasswordSerializers(serializers.Serializer):
     password = serializers.CharField(min_length=8)
     password2 = serializers.CharField(min_length=8)
+
 
 class LoginSerializers(serializers.Serializer):
     username = serializers.CharField(
@@ -19,3 +21,12 @@ class LoginSerializers(serializers.Serializer):
 class CreateUserSerializers(LoginSerializers, UpdateEmailSerializers):
     first_name = serializers.CharField(min_length=3, max_length=15)
     last_name = serializers.CharField(min_length=3, max_length=15)
+
+
+class DeportesSerializers(serializers.Serializer):
+    deporte = serializers.CharField()
+    hora = serializers.TimeField()
+    fecha = serializers.DateField()
+
+
+# pip install mkdocs
