@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{% static '/api/img/ico/información usuario.ico' %}" type="image/x-icon">
+    <title>Información del usuario</title>
+</head>
+
+<body>
+    <p><strong><i><u>Nombre y apellido</u></i></strong></p>
+    <p>{{nombre}}</p>
+    <p><strong><i><u>Nombre de usuario</u></i></strong></p>
+    <p id="username">{{usuario}}</p>
+    <p><strong><i><u>Correo electronico</u></i></strong></p>
+    <p>{{email}}</p>
+    <p><strong><i><u>Fecha de creación de la cuenta</u></i></strong></p>
+    <p>{{fechaCreacion}}</p>
+    <p id="mensajeRecerba"><a href="{% url 'api:index' %}">Volver al menu principal</a></p>
+    <p><button style="font-size: 22px;" id="eliminar_cuenta">Eliminar cuenta</button></p>
+</body>
+
+</html>

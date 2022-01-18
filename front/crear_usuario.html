@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{% static '/api/img/ico/crear usuario.ico' %}" type="image/x-icon">
+    <title>Creación de usuario</title>
+</head>
+
+<body>
+    <form action="{% url 'api:procesar' %}" method="post">
+        <input type="text" name="firstName" id="fn" placeholder="Ingrese su nombre" value={{nombre}}>
+        <input type="text" name="lastName" id="ln" placeholder="Ingrese su apellido" value={{apellido}}>
+        <p style="color: greenyellow;">{{correo}}</p>
+        <input type="email" name="email" id="email" placeholder="Ingrese su email" value={{correo}}>
+        <p style="color: greenyellow;">{{usuario}}</p>
+        <input type="text" name="username" id="user" placeholder="Ingrese su nombre de usuario" value={{usuario}}>
+        <input type="password" name="pwd" id="pwd" placeholder="Ingrese su contraseña">
+        <input type="submit" value="Registrarme" id="recovery">
+    </form>
+    <p id="mensajeRecerba"><a href="{% url 'api:index' %}">Volver al menu principal</a></p>
+
+</body>
+
+</html>

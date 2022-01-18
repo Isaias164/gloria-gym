@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reserbas hechas</title>
+</head>
+
+<body>
+    <br>
+
+    <table>
+        <th>N° de recerba</th>
+        <th>Nombre de usuario</th>
+        <th>Deporte recerbado</th>
+        <th>Fecha de la recerba</th>
+        <th>horario</th>
+        <th>totalPagar</th>
+        <th>Cancelar</th>
+
+        <tr>
+
+            <td>{{elementos}}</td>
+
+            <td><button class="botonCancelarRecerba">Cancelar recerba</button></td>
+        </tr>
+
+    </table>
+    <p id="mensajeRecerba">Aqui apareceran sus recerbas realizas.<br><br>Usted no tiene ninguna recerba realizada</p>
+
+    <p><a href="{% url 'api:index' %}">Volver al menu principal</a></p>
+
+</body>
+
+</html>

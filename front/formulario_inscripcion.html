@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de inscripción</title>
+    <link rel="shortcut icon" href="{% static '/api/img/businessregistration_signpen_negocio_inscripcio_2358.ico' %}"
+        type="image/x-icon">
+</head>
+
+<body>
+    <div id="form">
+        <form id="formInscrip" action="{% url 'api:deportes' %}" method="POST">
+            <a href="{% url 'api:index' %}"><img src="{% static '/api/img/x.png' %}" id="salir"></a>
+            <input type="date" name="fecha" id="fecha" required title="Fecha de tu reserba" />
+            <input type="number" name="hora" id="hora" value="10" min="10" max="21" step="1"
+                title="Hora de tu reserba" /><br>
+            <label>Cantidad de horas de su reserva &nbsp;&nbsp;&nbsp;&nbsp;</label>
+            <input type="number" name="cantHora" value="1" min="1" max="12" required readonly /><br>
+            <input type="hidden" value="" id="deporte" name="deporte">
+            <label id="option">Voy a pagar</label>
+            <select name="formPago">
+                <option>Efectivo</option>
+            </select>
+            <input type="submit" value="Listo" id="botonEnviar" />
+        </form>
+    </div>
+
+</body>
+
+</html>

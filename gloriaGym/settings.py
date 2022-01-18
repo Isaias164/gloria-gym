@@ -188,3 +188,4 @@ REST_FRAMEWORK = {
     # ],
 }
 SG_API_KEY = os.getenv("SENGRID_API_KEY")
+DEFAULT_AUTO_FIELD = "django.db.models.AutoField"

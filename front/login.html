@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="shortcut icon" href="{% static '/api/img/ico/login.ico' %}" type="image/x-icon">
+</head>
+
+<body>
+    <div>
+        <form action="{% url 'api:procesar' %}" method="get">
+            <input type="text" id="user" name="user" placeholder="Ingrese su correo" required>
+            <input type="password" id="pwd" name="pwd" placeholder="Ingrese su contraseña" required>
+            <label for="#recordar"><input type="checkbox" name="recordar1" value="off" id="recordar">Recordarme</label>
+            <input type="submit" id="button" value="Ingresar">
+        </form>
+        <div style="position: relative;right: 60%;">
+            <p style="color: white; font-size: 22px;text-align: center;">{{mensaje}}</p>
+        </div>
+    </div>
+    <div>
+        <p><a href="{% url 'api:recoveryPassword' %}">Olvide mi contraseña</a></p>
+        <p><a href="{% url 'api:createUser' %}">Crear usuario</a></p>
+    </div>
+</body>
+
+</html>
