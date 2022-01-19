@@ -67,14 +67,14 @@ nav a:hover{
 a{
     text-decoration: none;
 }
-#sports a{
+/* #sports a{
     text-decoration: none;
     border: 1.3px solid green;
     background-color: green;
     font-size: 20px;
     color: wheat;
     padding: 2%;
-}
+} */
 #sports a:hover{
     background-color: white;
     color: green;
