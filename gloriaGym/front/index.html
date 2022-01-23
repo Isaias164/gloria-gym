@@ -3,7 +3,6 @@
 
 <head>
     <title>Gloria Gym</title>
-
     <meta charset="UTF-8">
     <meta name="viewport"
         content="width=device-width, initial-scale=1.5 user-scalable = no minimum-scale = 100% maximum-scale = 110%">
@@ -11,8 +10,8 @@
     <link rel="stylesheet" href="./css/index.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="https://kit.fontawesome.com/6d1eb7a102.js" crossorigin="anonymous"></script>
     <style>
-
     </style>
 </head>
 
@@ -42,7 +41,7 @@
             </div>
         </div>
     </nav>
-    <div id="sports">
+    <div id="sports" class="columns">
         <div id="futbol">
             <picture>
                 <source media="(min-width:768px) and (max-width:991px)"
@@ -54,7 +53,7 @@
                 <img src="./img/futbol.png">
             </picture>
             <!-- <span class="tag is-primary">Primary</span> -->
-            <a href="" class="tag is-success" id="linkF">¡Hacer recerba!</a>
+            <a href="" class="tag is-success is-medium column" id="linkF">¡Hacer recerba!</a>
         </div>
         <div id="gym">
             <picture>
@@ -66,7 +65,7 @@
                     srcset="./img/img-responsive/sports/gym-400px.png">
                 <img src="./img/gym.png">
             </picture>
-            <a href="" class="tag is-success" id="linkG">¡Hacer recerba!</a>
+            <a href="" class="tag is-success is-medium" id="linkG">¡Hacer recerba!</a>
         </div>
         <div id="sinkSwimming">
             <picture>
@@ -78,7 +77,7 @@
                     srcset="./img/img-responsive/sports/swimming-400px.png">
                 <img src="./img/swimming.png">
             </picture>
-            <a href="" class="tag is-success" id="linkN">¡Hacer recerba!</a>
+            <a href="" class="tag is-success is-medium" id="linkN">¡Hacer recerba!</a>
         </div>
         <div id="paddle">
             <picture>
@@ -90,74 +89,94 @@
                     srcset="./img/img-responsive/sports/paddle-400px.png">
                 <img src="./img/paddle.png" title="Reserba para la cancha de paddle">
             </picture>
-            <a href="" class="tag is-success" id="linkP">¡Hacer recerba!</a>
+            <a href="" class="tag is-success is-medium" id="linkP">¡Hacer recerba!</a>
         </div>
     </div>
-    <p id="tituloTorneos">Torneos a realizar</p>
-    <div id="competitions">
-        <img src="./img/torneos/futbol/futbol1.PNG" id="compeFutbol">
-        <img src="./img/torneos/gym/gym1.PNG" id="compeGym">
-        <img src="./img/torneos/natación/natación1.PNG" id="compeNatacion">
-        <img src="./img/torneos/paddle/paddle1.PNG" id="compePaddle">
+    <p id="tituloTorneos" class="content title is-1">Torneos a realizar</p>
+    <div id="competitions" class="columns">
+        <figure class="image is-4by3">
+            <img src="./img/torneos/futbol/futbol1.PNG" id="compeFutbol">
+        </figure>
+        <figure class="image is-4by3">
+            <img src="./img/torneos/gym/gym1.PNG" id="compeGym">
+        </figure> -->
+        <figure class="image is-4by3 is-4by5">
+            <img src="./img/torneos/natación/natación1.PNG" id="compeNatacion">
+        </figure>
+        <figure class="image is-4by3">
+            <img src="./img/torneos/paddle/paddle1.PNG" id="compePaddle">
+        </figure>
+
     </div>
-    <footer>
-        <div id="whoWeAre">
-            <header id="a">¿Quienes somos?</header><br>
-            <p>Somos una empresa deportiva y social que lleva más de 20 años en el rubro organizando eventos deportivos
+    <footer class="footer">
+        <div id="whoWeAre" class="box">
+            <header id="a" class="content is-large">¿Quienes somos?</header><br>
+            <p class="content is-medium">Somos una empresa deportiva y social que lleva más de 20 años en el rubro
+                organizando eventos deportivos
                 y sociales.</p>
         </div>
-        <div id="weOffer">
-            <header>¿Que ofrecemos?</header><br>
-            <p>Profesionalismo, execelente atención, instalaciones bien equipadas y en muy buen estado.<br>Además de la
+        <div id="weOffer" class="box">
+            <header class="content is-large">¿Que ofrecemos?</header><br>
+            <p class="content is-medium">Profesionalismo, execelente atención, instalaciones bien equipadas y en muy
+                buen estado.<br>Además de la
                 posibilidad de competir en torneos a nivel provincial y nacional</p>
         </div>
-        <div id="whereWeAre">
-            <header>Donde nos puedes encontrar</header><br>
-            <p>Nos encontramos en Av.Neustadt 183</p>
+        <div id="whereWeAre" class="box">
+            <header class="content is-large">Donde nos puedes encontrar</header><br>
+            <p class="content is-medium">Nos encontramos en Av.Neustadt 183</p>
         </div>
-        <div id="information">
-            <header>Horarios de atención</header><br>
-            <p>Lunes a Sabado<br>De 8:00 hrs a 22:00 hrs</p>
+        <div id="information" class="box">
+            <header class="content is-large">Horarios de atención</header><br>
+            <p class="content is-medium">Lunes a Sabado<br>De 8:00 hrs a 22:00 hrs</p>
         </div>
-        <div id="consultations">
-            <header>Consultas</header>
-            <p>Puedes consultarnos por cualquier red social o mediante el formulario que esta en el apartado
+        <div id="consultations" class="box">
+            <header class="content is-large">Consultas</header>
+            <p class="content is-medium">Puedes consultarnos por cualquier red social o mediante el formulario que esta
+                en el apartado
                 <strong>Formas de Contactos</strong>
             </p>
         </div>
-        <div id="contact">
-            <header>Formas de contacto</header><br>
-            <p>Envianos un correo a <a href="https://mail.google.com/mail">ComplejoDeportivoLaGloria02020@gmail.com</a>
+        <div id="contact" class="box">
+            <header class="content is-large">Formas de contacto</header><br>
+            <p class="content is-medium">Envianos un correo a <a href="https://mail.google.com/mail"
+                    class="tag is-info">ComplejoDeportivoLaGloria02020@gmail.com</a>
             </p>
-            <p>Llamando al celular (3777)1234567890.</p>
-            <p><a href="#formContact" id="fc">Contactar por este medio</a></p>
+            <p class="content is-medium">Llamando al celular (3777)1234567890.</p>
+            <p class="content is-medium"><a href="#formContact" id="fc" class="tag is-success">Contactar por este
+                    medio</a></p>
         </div>
     </footer>
 
     <form name="formularioContacto" action="https://formspree.io/f/xdoyejwd" method="POST" id="formContact">
-        <!-- <a href="#contact" id="salirEnlace"><img src="{% static '/api/img/x.png' %}" id="salir"></a>-->
-        <label for="nombre1" class="label">Nombre</label>
+        <!-- <button class="delete is-left"></button> -->
+        <label for=" nombre1" class="label">Nombre</label>
         <div class="field">
-            <div class="control">
+            <div class="control has-icons-left">
+                <span class="icon is-left">
+                    <i class="far fa-user"></i>
+                </span>
                 <input type="text" name="nombre" value="" id="nombre1" class="input" placeholder="Ingrese su nombre"
                     autocomplete="on" required />
             </div>
         </div>
         <label for="apellido1">Apellido</label>
         <div class="field">
-            <div class="control">
+            <div class="control has-icons-left">
+                <span class="icon is-left">
+                    <i class="far fa-user"></i>
+                </span>
                 <input type="text" name="apellido" value="" id="apellido1" class="input"
                     placeholder="Ingrese su apellido" autocomplete="on" required />
             </div>
         </div>
         <label for="correo1">Correo</label>
         <div class="field">
-            <div class="control">
-                <span class="icon">
-                    <i class="material-icons fas fa-home"></i>
+            <div class="control has-icons-left">
+                <span class="icon is-left">
+                    <i class="far fa-envelope"></i>
                 </span>
-                <input type="email" name="correo" value="" id="correo1" class="input" placeholder="Ingrese su correo"
-                    autocomplete="on" required />
+                <input type="email" name="correo" value="" id="correo1" class="input is-normal"
+                    placeholder="Ingrese su correo" autocomplete="on" required />
             </div>
         </div>
         <label for="">Motivo</label>
@@ -181,8 +200,6 @@
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"
         integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="{% static '/api/js/index.js' %}"></script>
-    <script type="text/javascript" src="{% static '/api/js/forms.js' %}"></script>
     <script>
         $("#fc").click(function () {
             $("#form").css("display", "block");
@@ -194,29 +211,3 @@
 </body>
 
 </html>
-<!-- <div class="field">
-    <p class="control has-icons-left has-icons-right">
-      <input class="input" type="email" placeholder="Email">
-      <span class="icon is-small is-left">
-        <i class="fas fa-envelope"></i>
-      </span>
-      <span class="icon is-small is-right">
-        <i class="fas fa-check"></i>
-      </span>
-    </p>
-  </div>
-  <div class="field">
-    <p class="control has-icons-left">
-      <input class="input" type="password" placeholder="Password">
-      <span class="icon is-small is-left">
-        <i class="fas fa-lock"></i>
-      </span>
-    </p>
-  </div>
-  <div class="field">
-    <p class="control">
-      <button class="button is-success">
-        Login
-      </button>
-    </p>
-  </div> -->
