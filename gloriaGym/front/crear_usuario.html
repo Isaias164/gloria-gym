@@ -1,34 +1,73 @@
-{% extends 'index.html' %}
-{% load static %}
-{% block icon %}
-    <link rel="shortcut icon" href="{% static '/api/img/ico/crear usuario.ico' %}" type="image/x-icon">
-{% endblock icon %}
-{% block title %}
-    <title>Creación de usuario</title>
-{% endblock title %}
-    
-{% block css %}
-    <link rel="stylesheet" href="{% static '/api/css/informacion_usuario.css' %}">
-    <link rel="stylesheet" href="{% static '/api/css/logging.css' %}">
-{% endblock css %}
+<!DOCTYPE html>
+<html lang="en">
 
-{% block body %}
-    <form action="{% url 'api:procesar' %}" method="post">
-        {% csrf_token %}
-        <input type="text" name="firstName" id="fn" placeholder="Ingrese su nombre" value= {{nombre}}>
-        <input type="text" name="lastName" id="ln" placeholder="Ingrese su apellido" value={{apellido}}>
-        {% if "Este correo" in correo %}
-            <p style="color: greenyellow;">{{correo}}</p>
-        {% endif %}
-        <input type="email" name="email" id="email" placeholder="Ingrese su email" value={{correo}}>
-        {% if "Este usario" in usuario %}
-            <p style="color: greenyellow;">{{usuario}}</p>
-        {% endif %}
-        <input type="text" name="username" id="user" placeholder="Ingrese su nombre de usuario" value={{usuario}}>
-        <input type="password" name="pwd" id="pwd" placeholder="Ingrese su contraseña">
-        <input type="submit" value="Registrarme" id="recovery">
-    </form>
-    <p id="mensajeRecerba"><a href="{% url 'api:index' %}">Volver al menu principal</a></p>
-    <script src="{% static '/api/js/forms.js' %}"></script>
-{% endblock body %}
-    
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- font iconos -->
+    <script src="https://kit.fontawesome.com/6d1eb7a102.js" crossorigin="anonymous"></script>
+    <!-- bulma -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="shortcut icon" href="./img/ico/crear usuario.ico" type="image/x-icon">
+    <title>Creación de usuario</title>
+
+</head>
+
+<body>
+    <div class="box">
+
+        <form action="{% url 'api:procesar' %}" method="post">
+            <div class="fields">
+                <div class="control">
+                    <label for="#firstName" class="label">Ingrese su nombre
+                    </label>
+                    <input type="text" class="input" name="firstName" id="fn" placeholder="Ingrese su nombre">
+                </div>
+            </div>
+            <div class="fields">
+                <div class="control">
+                    <label for="#lastName" class="label">
+                        Ingrese su apellido
+                    </label>
+                    <input type="text" class="input" name="lastName" id="ln" placeholder="Ingrese su apellido">
+                </div>
+            </div>
+            <div class="fields">
+                <div class="control">
+                    <label for="emai" class="label">
+                        Ingrese su email
+                    </label>
+                    <input type="email" class="input" name="email" id="email" placeholder="Ingrese su email">
+                </div>
+            </div>
+            <div class="fields">
+                <div class="control">
+                    <label for="username" class="label">
+                        Ingrese su usuario
+                    </label>
+                    <input type="text" class="input" name="username" id="user"
+                        placeholder="Ingrese su nombre de usuario">
+                </div>
+            </div>
+            <div class="fields">
+                <div class="control">
+                    <label for="#pwd" class="label">
+                        Ingrese su contraseña
+                    </label>
+                    <input type="password" class="input" name="pwd" id="pwd" placeholder="Ingrese su contraseña">
+                </div>
+            </div>
+            <div class="field">
+                <div class="control">
+                    <label for="" class="label"></label>
+                    <input type="submit" value="Registrarme" id="recovery" class="input button is-primary is-outlined">
+                </div>
+            </div>
+        </form>
+        <p id="mensajeRecerba" class="is-link"><a href="{% url 'api:index' %}">Volver al menu principal</a></p>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    </div>
+</body>
+
+</html>

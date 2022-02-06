@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmación de la inscripción</title>
+</head>
+
+<body>
+    <div class="columns" id=confirmacion_recerba>
+        <!-- <a href="{% url 'api:index' %}"><img src="./img/x.png" id="salirServidor"></a> -->
+        <p id="pServidor">{{ message }}</p>
+        <div v-if="recerba_hecha">
+            <img src={{succes}}>
+        </div>
+        <div v-else>
+            <img src={{failed}}">
+        </div>
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script src="./js/main.js" type="module"></script>
+</body>
+
+</html>
